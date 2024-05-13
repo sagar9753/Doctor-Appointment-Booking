@@ -10,6 +10,7 @@ body{
   font-family: "Manrope", sans-serif;
 }
 
+
 @media only screen and (max-width: 947px){
   .container{
     flex-direction: column;

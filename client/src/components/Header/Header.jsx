@@ -2,6 +2,7 @@ import { NavLink, Link } from 'react-router-dom'
 
 import logo from '../../assets/images/logo.png'
 import profileImg from '../../assets/images/avatar-icon.png'
+import { useEffect, useRef } from 'react'
 
 const menuItems = [
   {
@@ -25,7 +26,7 @@ const menuItems = [
 const Header = () => {
 
   return (
-    <header className="header flex items-center bg-[#d4d1b8] py-[10px]">
+    <header className="header sticky top-0 flex items-center bg-[#e2e0ce] py-[15px]">
       <div className="container flex items-center justify-between ">
         {/* ---------------LOGO---------------------- */}
         <div>
