@@ -2,7 +2,6 @@ import { NavLink, Link } from 'react-router-dom'
 
 import logo from '../../assets/images/logo.png'
 import profileImg from '../../assets/images/avatar-icon.png'
-import { useEffect, useRef } from 'react'
 
 const menuItems = [
   {
@@ -11,7 +10,7 @@ const menuItems = [
   },
   {
     path: '/doctors',
-    display: 'Find Doctor'
+    display: 'Doctors'
   },
   {
     path: '/contact',
@@ -23,18 +22,18 @@ const menuItems = [
   },
 ]
 
-const Header = () => {
+const Header = () => {   
 
   return (
-    <header className="header sticky top-0 flex items-center bg-[#e2e0ce] py-[15px]">
-      <div className="container flex items-center justify-between ">
+    <header className="sticky top-0 flex items-center bg-[#acc3de] py-[15px]">
+      <div className="header container flex items-center justify-between ">
         {/* ---------------LOGO---------------------- */}
         <div>
           <img src={logo} alt="" />
         </div>
 
         {/* ---------------MENU ITEM------------------- */}
-        <ul className="menu text-[16px] flex items-center gap-[2rem]">
+        <ul className="menu text-[16px] flex items-center gap-[2rem] ">
           {
             menuItems.map((item, ind) => <li key={ind}>
               <NavLink

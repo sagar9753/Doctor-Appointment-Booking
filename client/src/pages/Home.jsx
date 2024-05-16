@@ -1,5 +1,4 @@
 import React from 'react'
-import Services from '../components/Services/Services'
 
 import heroImg from '../assets/images/hero-img01.png'
 
@@ -29,9 +28,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      {/* ------------------------Services--------------------------- */}
-      <Services />
     </>
   )
 }

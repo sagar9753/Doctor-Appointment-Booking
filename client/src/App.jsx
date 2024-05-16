@@ -5,7 +5,10 @@ function App() {
 
   return (
     <>
-      <Layout/>
+      <div className="backgrnd">
+        {/* <img src={bgimg} alt="" /> */}
+        <Layout />
+      </div>
     </>
   )
 }
