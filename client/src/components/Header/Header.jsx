@@ -25,7 +25,7 @@ const menuItems = [
 const Header = () => {   
 
   return (
-    <header className="sticky top-0 flex items-center bg-[#acc3de] py-[15px]">
+    <header className="sticky top-0 flex items-center bg-[#97c0f0] bg-opacity-90 py-[15px]">
       <div className="header container flex items-center justify-between ">
         {/* ---------------LOGO---------------------- */}
         <div>

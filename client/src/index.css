@@ -22,7 +22,7 @@
     }
 
     .text_para{
-        @apply text-[16px] mt-[18px]
+        @apply text-[16px] mt-[18px] text-[#303031]
     }
 }
 
