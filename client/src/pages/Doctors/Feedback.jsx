@@ -1,9 +1,11 @@
-import React from 'react'
+import { useState } from 'react'
 import { FaStar } from "react-icons/fa";
 import avatar from '../../assets/images/avatar-icon.png'
 import { dateFormate } from '../../utils/dateFormate'
+import FeedbackForm from './FeedbackForm';
 
 const Feedback = () => {
+    const [showFeedForm, setShowFeedForm] = useState(false)
     return (
         <div className='max-w-[700px]'>
             <h2 className='text-[20px] lg:text-[23px] font-[700] mb-[20px]'>
@@ -32,6 +34,12 @@ const Feedback = () => {
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, possimus?Lorem ipsum, dolor sit amet consectetur
                 </p>
             </div>
+
+            {!showFeedForm &&
+                <button onClick={() => setShowFeedForm(!showFeedForm ? true : false)} className="btn">
+                    Give Feedback
+                </button>}
+            {showFeedForm && <FeedbackForm />}
         </div>
     )
 }
