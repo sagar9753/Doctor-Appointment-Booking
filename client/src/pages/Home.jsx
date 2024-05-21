@@ -10,7 +10,7 @@ const Home = () => {
           <div className="flex flex-col justify-between items-center w-full md:flex-row gap-[50px]">
             {/* hero section */}
             <div className='md:w-[600px]'>
-              <h1 className='text-[40px] font-[700] lg:text-[55px]'>
+              <h1 className='heading'>
                 Lorem, ipsum dolor sit amet consectetur
               </h1>
               <p className='text_para'>
