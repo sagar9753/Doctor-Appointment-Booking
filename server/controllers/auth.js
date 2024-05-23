@@ -9,7 +9,7 @@ export const register = async (req, res) => {
         const { fullname, email, password, role, gender, photo } = req.body;
         console.log(req.body);
 
-        const user = null;
+        let user = null;
         if (role === 'patient') {
             user = await User.findOne({ email: email });
         }
@@ -23,7 +23,7 @@ export const register = async (req, res) => {
         const salt = await bcrypt.genSalt();
         const hashPassword = await bcrypt.hash(password, salt);
 
-        const newUser = null;
+        let newUser = null;
         if (role === 'patient') {
             newUser = new User({
                 fullname, email, password: hashPassword, photo, gender, role
@@ -45,11 +45,11 @@ export const register = async (req, res) => {
 }
 export const login = async (req, res) => {
     try {
-        const { email, password } = req.body();
+        const { email, password } = req.body;
 
         const patient = await User.findOne({ email });
         const doctor = await Doctor.findOne({ email });
-        const user = null;
+        let user = null;
 
         if (patient)
             user = patient;
