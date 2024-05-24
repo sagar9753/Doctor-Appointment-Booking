@@ -6,6 +6,7 @@ import cors from 'cors'
 
 import authRoute from './routes/auth.js'
 import userRoute from './routes/user.js'
+import doctorRoute from './routes/doctor.js'
 
 dotenv.config();
 const app = express();
@@ -16,6 +17,7 @@ app.use(cookieParser());
 
 app.use("/auth", authRoute);
 app.use("/users", userRoute);
+app.use("/doctors", doctorRoute)
 
 app.get("/", (req, res) => {
     res.send("Hello Sagar"); 
