@@ -25,12 +25,12 @@ export const deleteDoctor = async (req, res) => {
 export const getDoctor = async (req, res) => {
     try {
         const doctorId = req.params.id;
-        const doctor = await Doctor.findById(doctorId).select("-password")
+        const doctor = await Doctor.findById(doctorId).populate('reviews').select("-password")
 
         res.status(200).json({ success: true, msg: "Doctor found", data: doctor });
     } catch (err) {
         res.status(404).json({ success: false, error: err.message });
-    }
+    } 
 }
 
 export const getAllDoctor = async (req, res) => {

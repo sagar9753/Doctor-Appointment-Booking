@@ -5,7 +5,7 @@ import { verifyToken, restrict } from '../middleware/verifyToken.js'
 const router = express.Router({mergeParams:true});
 
 router.get("/", getAllReviews);
-router.post("/", verifyToken, restrict(["patient"]));
+router.post("/", verifyToken, restrict(["patient"]),createReview);
 
 export default router; 
 
