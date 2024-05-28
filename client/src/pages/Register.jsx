@@ -1,31 +1,65 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import {toast} from 'react-toastify'
+import BounceLoader from 'react-spinners/BeatLoader'
 
-import regImg from '../assets/images/signup.gif'
-import avatar from '../assets/images/doctor-img01.jpg'
+import uploadImgToCloudinary from '../utils/uploadCloudinary'
+
 
 const Register = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [previewURL, setPreviewURL] = useState("");
+  const [imageURL, setImageURL] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
-    fullName: "",
+    fullname: "",
     email: "",
     password: "",
-    photo: selectedFile,
+    photo: imageURL,
     gender: "",
     role: "patient"
   })
+
+  const navigate = useNavigate();
+
   const handleForm = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
   const handleFile = async (e) => {
     const file = e.target.files[0]
-  }
+    const data = await uploadImgToCloudinary(file);
+    console.log(data.url);
+    
+    setImageURL(data.url);
+    setFormData({...formData, photo: data.url});
+  } 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
+
+    try {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND}/auth/register`,{
+        method:'post',
+        body:JSON.stringify(formData),
+        headers:{
+          'Content-Type' : 'application/json'
+        }
+      })
+
+      const {msg} = await res.json()
+      
+      if(!res.ok)
+        throw new Error(msg)
+
+      setLoading(false);
+      toast.success(msg);
+      navigate('/login');
+      
+    } catch (err) {
+      toast.error(err.message)
+      setLoading(false)
+    }
   }
 
   return (
@@ -36,7 +70,7 @@ const Register = () => {
         </h2>
         <form onSubmit={handleSubmit} className='py-4'>
           <div className="mb-5">
-            <input type="text" name="fullName" placeholder='Full Name' value={formData.fullName} onChange={handleForm}
+            <input type="text" name="fullname" placeholder='Full Name' value={formData.fullname} onChange={handleForm}
               className='w-full p-2 border-b border-solid border-[#67696c61] text-[#3f3f3f] placeholder:text-[#5b5b5b] bg-transparent focus:outline-none focus:border-b-blue-600'
               required
             />
@@ -81,9 +115,9 @@ const Register = () => {
           </div>
 
           <div className=' flex items-center gap-3'>
-            <div className='w-[50px] h-[50px] rounded-full border-2 flex items-center justify-center '>
-              <img src={avatar} alt="" className='w-full rounded-full' />
-            </div>
+            {imageURL && <div className='w-[50px] h-[50px] rounded-full border-2 flex items-center justify-center '>
+              <img src={imageURL} alt="" className='w-full rounded-full' />
+            </div>}
             <div>
               <input type="file" name='photo' id='userPic'
                 accept='.jpg, .png'
@@ -94,8 +128,8 @@ const Register = () => {
             </div>
           </div>
 
-          <button type='submit' className='btn w-full'>
-            Register
+          <button disabled={(loading && true) || !imageURL} type='submit' className='btn w-full'>
+            {loading ? <BounceLoader className='text-[#0d1110]' /> : 'Register'}
           </button>
           <p className='mt-[10px]'>Already have an account?
             <Link to="/login" className='text-blue-500 font-semibold hover:text-blue-700'>  Login</Link>
