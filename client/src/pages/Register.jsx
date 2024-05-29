@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 import BounceLoader from 'react-spinners/BeatLoader'
+import { useSelector,useDispatch } from 'react-redux'
 
 import uploadImgToCloudinary from '../utils/uploadCloudinary'
+import { setLogin } from '../state'
 
 
 const Register = () => {
@@ -29,33 +31,33 @@ const Register = () => {
     const file = e.target.files[0]
     const data = await uploadImgToCloudinary(file);
     console.log(data.url);
-    
+
     setImageURL(data.url);
-    setFormData({...formData, photo: data.url});
-  } 
+    setFormData({ ...formData, photo: data.url });
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_BACKEND}/auth/register`,{
-        method:'post',
-        body:JSON.stringify(formData),
-        headers:{
-          'Content-Type' : 'application/json'
+      const res = await fetch(`${import.meta.env.VITE_BACKEND}/auth/register`, {
+        method: 'post',
+        body: JSON.stringify(formData),
+        headers: {
+          'Content-Type': 'application/json'
         }
       })
 
-      const {msg} = await res.json()
-      
-      if(!res.ok)
+      const { msg } = await res.json()
+
+      if (!res.ok)
         throw new Error(msg)
 
       setLoading(false);
       toast.success(msg);
       navigate('/login');
-      
+
     } catch (err) {
       toast.error(err.message)
       setLoading(false)

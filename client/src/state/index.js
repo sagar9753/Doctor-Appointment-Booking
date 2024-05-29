@@ -6,14 +6,14 @@ const initialState = {
     role: ""
 };
 
-export const authSlice = createSlice({
+export const authSlice = createSlice({ 
     name: "auth",
     initialState,
     reducers: {
         setLogin: (state, action) => {
             state.user = action.payload.user;
             state.token = action.payload.token;
-            state.role = action.payload.role
+            state.role = action.payload.role;
         },
         setLogout: (state) => {
             state.user = null;

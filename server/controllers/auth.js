@@ -7,8 +7,7 @@ import Doctor from '../models/Doctor.js'
 export const register = async (req, res) => {
     try {
         const { fullname, email, password, role, gender, photo } = req.body;
-        console.log(req.body);
-
+        
         let user = null;
         if (role === 'patient') {
             user = await User.findOne({ email: email });
@@ -16,13 +15,13 @@ export const register = async (req, res) => {
         else if (role === 'doctor') {
             user = await Doctor.findOne({ email: email });
         }
-
+        
         if (user)
             return res.status(400).json({ msg: "Email is Already used" });
-
+        
         const salt = await bcrypt.genSalt();
         const hashPassword = await bcrypt.hash(password, salt);
-
+        
         let newUser = null;
         if (role === 'patient') {
             newUser = new User({
@@ -34,6 +33,7 @@ export const register = async (req, res) => {
                 fullname, email, password: hashPassword, photo, gender, role
             })
         }
+        console.log(newUser);
         await newUser.save();
 
         res.status(200).json({ success: true, msg: "User registered" })
@@ -45,8 +45,10 @@ export const register = async (req, res) => {
 }
 export const login = async (req, res) => {
     try {
-        const { email, password } = req.body;
-
+        console.log("Welcome in login");
+        const { email, password } = req.body; 
+        console.log(email,password);
+ 
         const patient = await User.findOne({ email });
         const doctor = await Doctor.findOne({ email });
         let user = null;
@@ -55,6 +57,7 @@ export const login = async (req, res) => {
             user = patient;
         if (doctor)
             user = doctor;
+
 
         if (!user)
             res.status(404).json({ msg: "User not found" })
