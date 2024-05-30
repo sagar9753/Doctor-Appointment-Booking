@@ -6,10 +6,17 @@ import Services from '../pages/Services'
 import Contact from '../pages/Contact'
 import Doctor from '../pages/Doctors/Doctor'
 import DoctorDetails from '../pages/Doctors/DoctorDetails'
+import MyAccount from '../pages/User-account/MyAccount'
+import DoctorDashBoard from '../pages/Doctor-account/DoctorDashBoard'
 
-import {Routes,Route} from 'react-router-dom'
+import {Routes,Route, Navigate} from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const Routers = () => {
+
+  const {token,role} = useSelector((state)=>state);
+  const isAuth = Boolean(token);
+
   return (
     <Routes>
       <Route path="/" element={<Home/>} />
@@ -20,6 +27,8 @@ const Routers = () => {
       <Route path="/services" element={<Services/>} />
       <Route path="/doctors" element={<Doctor/>} />
       <Route path="/doctors/:id" element={<DoctorDetails/>} />
+      <Route path="/users/profile/me" element={isAuth && role === 'patient' ? <MyAccount/> : <Navigate to='/login' />} />
+      <Route path="/doctors/profile/me" element={isAuth && role === 'doctor' ? <DoctorDashBoard/> : <Navigate to='/login' />} />
     </Routes>
   )
 }

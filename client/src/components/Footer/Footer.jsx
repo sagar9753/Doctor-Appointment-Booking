@@ -24,7 +24,7 @@ const socialLinks = [
 const Footer = () => {
   return (
     <>
-      <footer className=' mt-[60px] py-6 bg-[#acc3de] bg-opacity-70'>
+      <footer className='mt-[60px] py-6 bg-[#acc3de] bg-opacity-70'>
         <div className="container">
           <div className="flex justify-between  md:flex-row flex-wrap gap-[20px]">
             <div>

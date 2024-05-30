@@ -6,7 +6,7 @@ import Footer from '../components/Footer/Footer'
 const Layout = () => {
   return (
     <>
-      <div>
+      <div className='flex flex-col justify-between'>
         <Header />
         <main>
           <Routers />

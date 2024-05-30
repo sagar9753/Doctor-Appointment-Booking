@@ -1,8 +1,9 @@
 import { NavLink, Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import {setLogout} from '../../state'
 
 import logo from '../../assets/images/logo.png'
-import profileImg from '../../assets/images/avatar-icon.png'
 
 const menuItems = [
   {
@@ -24,10 +25,18 @@ const menuItems = [
 ]
 
 const Header = () => {
-  const user = useSelector((state) => state.user)
+  const {user,role} = useSelector((state) => state)
   const token = useSelector((state) => state.token)
-  const role = useSelector((state) => state.role)
-  console.log(user, token, role);
+
+  const dispatch = useDispatch();
+
+  const handleLogout = ()=>{
+    dispatch(setLogout({
+      user:null,
+      token:null,
+      role:""
+    }))
+  }
   return (
     <header className="sticky top-0 flex items-center bg-[#97c0f0] bg-opacity-90 py-[15px]">
       <div className="header container flex items-center justify-between ">
@@ -37,7 +46,7 @@ const Header = () => {
         </div>
 
         {/* ---------------MENU ITEM------------------- */}
-        <ul className="menu text-[16px] flex items-center gap-[2rem] ">
+        <ul className="menu text-[16px] flex items-center gap-[2rem] md:gap-[1.5rem] ">
           {
             menuItems.map((item, ind) => <li key={ind}>
               <NavLink
@@ -55,22 +64,24 @@ const Header = () => {
         </ul>
 
         {/* Profile and login btn */}
-        <div>
-          {user ?
-            <div className='flex items-center gap-2'>
-              <h1 className='text-[17px] font-semibold text-[#9a1c51]'>{user.fullname}</h1>
+        {user ?
+          <div>
+            <div className='flex items-center gap-3'>
+              <h1 className='text-[19px] font-semibold text-[#9a1c51]'>{user.fullname}</h1>
               <Link to={`${role === 'doctor' ? '/doctors/profile/me' : '/users/profile/me'}`}>
                 <img className="rounded-3xl w-[37px] h-[37px]" src={user.photo} />
               </Link>
-            </div> :
-            <Link to="/login">
-              <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1.5 px-4 rounded">
-                Login
-              </button>
-            </Link>
-          }
-
-        </div>
+              <button onClick={handleLogout} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 text-[15px] rounded">
+              Logout
+            </button>
+            </div>
+          </div> :
+          <Link to="/login">
+            <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1.5 px-4 rounded">
+              Login
+            </button>
+          </Link>
+        }
       </div>
     </header>
   )
