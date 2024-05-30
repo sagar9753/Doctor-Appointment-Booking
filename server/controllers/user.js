@@ -1,4 +1,23 @@
 import User from "../models/User.js";
+import Booking from "../models/Booking.js"
+import Doctor from "../models/Doctor.js";
+
+export const getUserProfile = async (req, res) => {
+    try {
+        const userId = req.userId;
+
+        const user = await User.findById(userId);
+
+        if (!user)
+            return res.status(404).json({ success: true, msg: "User not found" });
+
+        const { password, ...rest } = user._doc;
+
+        res.status(200).json({ success: true, msg: "Profile info found", data: { ...rest } });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
+}
 
 export const updateUser = async (req, res) => {
     try {
@@ -40,5 +59,19 @@ export const getAllUser = async (req, res) => {
         res.status(200).json({ success: true, msg: "All users found", data: users });
     } catch (err) {
         res.status(404).json({ success: false, error: err.message });
+    }
+}
+
+export const getAppointments = async (req, res) => {
+    try {
+        const bookings = await Booking.find({ user: req.userId });
+
+        const doctorIds = bookings.map(ele => ele.doctor.id);
+
+        const doctors = await Doctor.find({ _id: { $in: doctorIds } }).select("-password");
+
+        res.status(200).json({ success: true, msg: "Appointments are found", data: doctors });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
     }
 }

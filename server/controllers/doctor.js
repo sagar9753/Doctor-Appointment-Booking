@@ -1,5 +1,23 @@
 import Doctor from "../models/Doctor.js";
 
+export const getDoctorProfile = async (req, res) => {
+    try {
+        const doctorId = req.doctorId;
+
+        const doctor = await Doctor.findById(doctorId);
+
+        if (!doctor)
+            return res.status(404).json({ success: true, msg: "Doctor not found" });
+
+        const { password, ...rest } = doctor._doc;
+        const appointments = await Booking.find({doctor:doctorId})
+
+        res.status(200).json({ success: true, msg: "Profile info found", data: { ...rest ,appointments} });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
+}
+
 export const updateDoctor = async (req, res) => {
     try {
         const doctorId = req.params.id;
