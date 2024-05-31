@@ -117,8 +117,8 @@ const Register = () => {
           </div>
 
           <div className=' flex items-center gap-3'>
-            {imageURL && <div className='w-[50px] h-[50px] rounded-full border-2 flex items-center justify-center '>
-              <img src={imageURL} alt="" className='w-full rounded-full' />
+            {imageURL && <div className='rounded-full border-2 flex items-center justify-center '>
+              <img src={imageURL} alt="" className='w-[50px] h-[50px] rounded-full' />
             </div>}
             <div>
               <input type="file" name='photo' id='userPic'

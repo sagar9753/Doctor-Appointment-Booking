@@ -67,7 +67,7 @@ const Header = () => {
         {user ?
           <div>
             <div className='flex items-center gap-3'>
-              <h1 className='text-[19px] font-semibold text-[#9a1c51]'>{user.fullname}</h1>
+              <h1 className='text-[17px] font-semibold text-[#9a1c51]'>{user.fullname}</h1>
               <Link to={`${role === 'doctor' ? '/doctors/profile/me' : '/users/profile/me'}`}>
                 <img className="rounded-3xl w-[37px] h-[37px]" src={user.photo} />
               </Link>
