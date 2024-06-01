@@ -23,7 +23,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistStore(store)} >
         <BrowserRouter>
-          <ToastContainer theme='dark' position='top-right' autoClose={3000} closeOnClick pauseOnHover={false} />
+          <ToastContainer theme='dark' position='top-right' autoClose={3000} closeOnClick pauseOnHover={true} />
           <App />
         </BrowserRouter>
       </PersistGate>

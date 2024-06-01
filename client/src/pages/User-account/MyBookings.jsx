@@ -8,7 +8,7 @@ const MyBookings = () => {
   console.log(data,error);
 
   return (
-    <div>
+    <div >
       {loading && <BounceLoader className='mt-5 text-center'/>}
       {
         !loading && !error && <div className='grid grid-col-1 lg:grid-col-2 gap-4'>

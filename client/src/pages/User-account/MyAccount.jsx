@@ -1,39 +1,40 @@
 import { useState } from 'react'
 
-import userImg from '../../assets/images/doctor-img01.jpg'
 import MyBookings from './MyBookings'
 import ProfileSetting from './ProfileSetting'
 import fetchData from '../../utils/fetchData'
 import { toast } from 'react-toastify'
 import PropagateLoader from 'react-spinners/PropagateLoader' 
+import { useSelector } from 'react-redux'
 
 const MyAccount = () => {
   const [tab, setTab] = useState("booking");
+  const user = useSelector(state => state.user)
 
-  const { data, loading, error } = fetchData(`${import.meta.env.VITE_BACKEND}/users/profile/me`)
+  // const { data, loading, error } = fetchData(`${import.meta.env.VITE_BACKEND}/users/profile/me`)
 
-  if(error)
-    toast.error(error)
+  // if(error)
+  //   toast.error(error)
 
   return (
-    <div className='flex justify-center container px-5 mt-9 '>
-      {loading && <div className='h-[60vh]'>
+    <div className='max-w-[1170px] mx-auto px-5 mt-9'>
+      {/* {loading && <div className='h-[60vh]'>
         <PropagateLoader className='mt-5 text-center' color='#36d7b7' size={30}/>
-      </div> }
+      </div> } */}
 
-      {
-        !loading && !error && <div className="flex gap-[100px]">
+      {/* {!loading && !error &&  */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3">
 
           <div className='pb-[50px]'>
             <div className='flex items-center justify-center'>
-              <img src={data.photo} alt="" className='w-[130px] h-[130px] rounded-full border-2 border-solid border-primaryColor' />
+              <img src={user.photo} alt="" className='w-[130px] h-[130px] rounded-full border-2 border-solid border-primaryColor' />
             </div>
 
             <div className='text-center mt-3'>
-              <h2 className='text-[18px] font-bold '>{data.fullname}</h2>
-              <p className='text_para'>{data.email}</p>
+              <h2 className='text-[18px] font-bold '>{user.fullname}</h2>
+              <p className='text_para'>{user.email}</p>
               <p className='font-medium'>
-                Blood Type : <span>O+</span>
+                Blood Type : <span>{user.bloodType}</span>
               </p>
             </div>
 
@@ -59,7 +60,7 @@ const MyAccount = () => {
           </div>
 
         </div>
-      }
+       {/* } */}
     </div>
   )
 }

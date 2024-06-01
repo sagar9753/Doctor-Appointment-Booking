@@ -22,11 +22,11 @@ export const getUserProfile = async (req, res) => {
 export const updateUser = async (req, res) => {
     try {
         const userId = req.params.id;
-        const updatedUser = await User.findByIdAndUpdate(userId, { $set: req.body }, { new: true });
-
+        const updatedUser = await User.findByIdAndUpdate(userId, { $set: req.body }, { new: true }).select('-password');
+        console.log(updatedUser);
         res.status(200).json({ success: true, msg: "User updated", data: updatedUser });
     } catch (err) {
-        res.status(500).json({ success: false, error: err.message });
+        res.status(500).json({ success: false, msg: err.message });
     }
 }
 
