@@ -38,7 +38,6 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
 
     try {
       const res = await fetch(`${import.meta.env.VITE_BACKEND}/auth/register`, {
@@ -130,7 +129,7 @@ const Register = () => {
             </div>
           </div>
 
-          <button disabled={(loading && true) || !imageURL} type='submit' className='btn w-full'>
+          <button disabled={!imageURL} type='submit' onClick={()=>setLoading(true)} className='btn w-full'>
             {loading ? <BounceLoader className='text-[#0d1110]' /> : 'Register'}
           </button>
           <p className='mt-[10px]'>Already have an account?

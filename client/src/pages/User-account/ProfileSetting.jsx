@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import BounceLoader from 'react-spinners/BeatLoader'
 import { useSelector, useDispatch } from 'react-redux'
@@ -8,10 +7,10 @@ import {setLogin} from '../../state'
 import uploadImgToCloudinary from '../../utils/uploadCloudinary'
 
 const ProfileSetting = () => {
-  const {user,token} = useSelector((state)=>state);
+  const {user,token,role} = useSelector((state)=>state);
   const dispatch = useDispatch();
 
-  const [imageURL, setImageURL] = useState(user.photo);
+  const [imageURL, setImageURL] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -21,8 +20,6 @@ const ProfileSetting = () => {
     gender: user.gender,
     bloodType:user.bloodType
   }) 
-
-  const navigate = useNavigate();
 
   const handleForm = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -38,9 +35,30 @@ const ProfileSetting = () => {
     setFormData({ ...formData, photo: data.url });
   }
 
+  const checkUpdatedOrNot = ()=>{
+    console.log("Check or ");
+    if(user.fullname !== formData.fullname)
+      return true;
+    else if(user.email !== formData.email)
+      return true;
+    else if(user.photo !== formData.photo)
+      return true;
+    else if(user.gender !== formData.gender)
+      return true;
+    else if(user.bloodType !== formData.bloodType)
+      return true;
+
+    return false;
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    if(!checkUpdatedOrNot()){
+      setLoading(false)
+      toast.warning("You did not updated anything");
+      return;
+    }
 
     try {
       const res = await fetch(`${import.meta.env.VITE_BACKEND}/users/${user._id}`, {
@@ -52,19 +70,19 @@ const ProfileSetting = () => {
         }
       })
 
-      const { msg } = await res.json()
+      const { msg,data } = await res.json()
 
       if (!res.ok){
-        console.log(msg);
         throw new Error(msg)
       }
-
       setLoading(false);
       dispatch(setLogin({
-        user:res.data
+        user:data,
+        token:token,
+        role:role
       }))
       toast.success(msg);
-      navigate('/login');
+      // navigate('/login');
 
     } catch (err) {
       toast.error(err.message)
@@ -130,8 +148,8 @@ const ProfileSetting = () => {
         </div>
 
         <div className=' flex items-center gap-3'>
-          {imageURL && <div className='rounded-full border-2 flex items-center justify-center '>
-            <img src={imageURL} alt="" className='w-[50px] h-[50px] rounded-full' />
+          {user.photo && <div className='rounded-full border-2 flex items-center justify-center '>
+            <img src={user.photo} alt="" className='w-[50px] h-[50px] rounded-full' />
           </div>}
           <div>
             <input type="file" name='photo' id='userPic'
@@ -143,8 +161,8 @@ const ProfileSetting = () => {
           </div>
         </div>
 
-        <button disabled={(loading && true) || !imageURL} type='submit' className='btn w-full'>
-          {loading ? <BounceLoader className='text-[#0d1110]' /> : 'Update Profile'}
+        <button onClick={()=>setLoading(true)} type='submit' className='btn w-full'>
+          {loading ? <BounceLoader color='#fff' /> : 'Update Profile'}
         </button>
       </form>
     </div>

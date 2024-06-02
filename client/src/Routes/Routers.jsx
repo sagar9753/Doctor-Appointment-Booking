@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux'
 
 const Routers = () => {
 
-  const {token,role} = useSelector((state)=>state);
+  const {user,token,role} = useSelector((state)=>state);
   const isAuth = Boolean(token);
 
   return (

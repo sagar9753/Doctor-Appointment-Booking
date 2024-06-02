@@ -8,6 +8,7 @@ export const register = async (req, res) => {
     try {
         const { fullname, email, password, role, gender, photo } = req.body;
         
+        console.log(role);
         let user = null;
         if (role === 'patient') {
             user = await User.findOne({ email: email });
@@ -18,6 +19,7 @@ export const register = async (req, res) => {
         
         if (user)
             return res.status(400).json({ msg: "Email is Already used" });
+
         
         const salt = await bcrypt.genSalt();
         const hashPassword = await bcrypt.hash(password, salt);

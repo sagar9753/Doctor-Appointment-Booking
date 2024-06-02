@@ -1,7 +1,7 @@
 import React from 'react'
 import fetchData from '../../utils/fetchData'
 import DoctorCard from '../../components/Doctors/DoctorCard'
-import BounceLoader from 'react-spinners/BeatLoader'
+import PropagateLoader from 'react-spinners/PropagateLoader'
 
 const MyBookings = () => {
   const {data,loading, error} = fetchData(`${import.meta.env.VITE_BACKEND}/users/appointments/my-appointments`);
@@ -9,7 +9,7 @@ const MyBookings = () => {
 
   return (
     <div >
-      {loading && <BounceLoader className='mt-5 text-center'/>}
+      {loading && <PropagateLoader color='#36d7b7' size={20} className='mt-5 text-center'/>}
       {
         !loading && !error && <div className='grid grid-col-1 lg:grid-col-2 gap-4'>
             {data.map((doctor)=>{

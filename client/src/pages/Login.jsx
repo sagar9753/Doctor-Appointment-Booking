@@ -71,8 +71,8 @@ const Login = () => {
               required
             />
           </div>
-          <button type='submit' className='btn w-full'>
-          {loading ? <BounceLoader className='text-[#0d1110]' /> : 'Login'}
+          <button type='submit' className='btn w-full' onClick={()=>setLoading(true)}>
+          {loading ? <BounceLoader color='#fff' /> : 'Login'}
           </button>
           <p className='mt-[10px]'>Don't have account?
             <Link to="/register" className='text-blue-500 font-semibold hover:text-blue-700'>  Register</Link>
