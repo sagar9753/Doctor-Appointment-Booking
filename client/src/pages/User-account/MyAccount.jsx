@@ -25,7 +25,7 @@ const MyAccount = () => {
       </div> } */}
 
       {/* {!loading && !error &&  */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3">
+      <div className="flex flex-wrap gap-[100px] justify-center">
 
         <div className='pb-[50px]'>
           <div className='flex items-center justify-center'>
@@ -47,7 +47,7 @@ const MyAccount = () => {
           </div>
         </div>
         {/* Profile and My Appointments switching tabs */}
-        <div className='w-[450px]'>
+        <div className='w-[500px]'>
           <Tabs tab={tab} setTab={setTab} tabs={tabs} />
           {tab === tabs[0] && <MyBookings />}
           {tab === tabs[1] && <ProfileSetting />}
