@@ -4,14 +4,16 @@ import docImg from '../../assets/images/doctor-img01.jpg'
 import AboutDoctor from './AboutDoctor';
 import Feedback from './Feedback';
 import BookApointment from './BookApointment';
+import Tabs from '../../components/Tabs/Tabs';
 
 const DoctorDetails = () => {
-  const [tab, setTab] = useState("about");
+  const [tab, setTab] = useState("About");
+  const tabs = ["About", "Feedback", "Appointment"];
   return (
     <section>
       <div className="container flex justify-center">
         <div className='w-full flex justify-center flex-wrap gap-10'>
-            {/* Doctor card */}
+          {/* Doctor card */}
           <div>
             <div class="bg-[#f0f0f0] rounded-t-[12px] ">
               <div>
@@ -30,36 +32,23 @@ const DoctorDetails = () => {
                 <div className='flex items-center justify-between'>
                   <span className='text-[12px]'>CHL Care Hospital, Indore</span>
 
-                    <span className='bg-[#CCF0F3] text-irisBlueColor py-1 px-2 text-[13px] lg:text-[15px]'>Surgen</span>
+                  <span className='bg-[#CCF0F3] text-irisBlueColor py-1 px-2 text-[13px] lg:text-[15px]'>Surgen</span>
                 </div>
 
               </div>
             </div>
           </div>
 
-          {/* About and Feedback navbar */}
+          {/* About, Feedback and appointments switching tabs */}
           <div className='w-[700px]'>
-            <div className='flex justify-center border-b border-solid border-[#05050534] '>
-              <button onClick={() => setTab("about")} 
-              className={`py-2 px-4 text-[16px] text-[#333333] font-[600] ${tab === "about" && 'border-b border-solid border-blue-600 text-blue-600 font-[800]'} ${tab !== "about" && 'hover:text-[#899c8e] hover:border-b'}`}>
-                About
-              </button>
-              <button onClick={() => setTab("feedback")} 
-              className={`py-2 px-4 text-[16px] text-[#333333] font-[600] ${tab === "feedback" && 'border-b border-solid border-blue-600 text-blue-600 font-[800]'} ${tab !== "feedback" && 'hover:text-[#899c8e] hover:border-b'}`}>
-                Feedback
-              </button>
-              <button onClick={() => setTab("book")} 
-              className={`py-2 px-4 text-[16px] text-[#333333] font-[600] ${tab === "book" && 'border-b border-solid border-blue-600 text-blue-600 font-[800]'} ${tab !== "book" && 'hover:text-[#899c8e] hover:border-b'}`}>
-                Appointment
-              </button>
-            </div>
+            <Tabs tab={tab} setTab={setTab} tabs={tabs} />
             <div className="mt-[50px]">
-              {tab === "about" && <AboutDoctor />}
-              {tab === "feedback" && <Feedback />}
-              {tab === "book" && <BookApointment />}
+              {tab === "About" && <AboutDoctor />}
+              {tab === "Feedback" && <Feedback />}
+              {tab === "Appointment" && <BookApointment />}
             </div>
           </div>
-          
+
         </div>
       </div>
     </section>
