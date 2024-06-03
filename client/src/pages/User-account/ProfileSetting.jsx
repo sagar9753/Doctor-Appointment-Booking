@@ -103,16 +103,6 @@ const ProfileSetting = () => {
             className='w-full p-2 border-b border-solid border-[#67696c61] text-[#3f3f3f] placeholder:text-[#5b5b5b] bg-transparent focus:outline-none focus:border-b-blue-600'
           />
         </div>
-        {/* <div className='mb-5'>
-          <input type="password" name="password" placeholder='Enter Password' value={formData.password} onChange={handleForm}
-            className='w-full p-2 border-b border-solid border-[#67696c61] text-[#3f3f3f] placeholder:text-[#5b5b5b] bg-transparent focus:outline-none focus:border-b-blue-600'
-          />
-        </div> */}
-        {/* <div className='mb-5'>
-          <input type="text" name="bloodType" placeholder='Blood Type' value={formData.bloodType} onChange={handleForm}
-            className='w-full p-2 border-b border-solid border-[#67696c61] text-[#3f3f3f] placeholder:text-[#5b5b5b] bg-transparent focus:outline-none focus:border-b-blue-600'
-          />
-        </div> */}
 
         <div className="mb-5 flex items-center justify-between flex-wrap gap-4">
           <label className='text-[#3f3f3f] font-semibold '>

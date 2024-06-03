@@ -24,6 +24,9 @@
     .text_para{
         @apply text-[16px] mt-[18px] text-[#59595b]
     }
+    .form_input{
+        @apply w-full p-2 rounded-md border border-solid border-[#67696c61] text-[#3f3f3f] placeholder:text-[#5b5b5b] bg-transparent focus:outline-none focus:border-blue-600
+    }
 }
 
 @media only screen and (max-width : 1024px){
