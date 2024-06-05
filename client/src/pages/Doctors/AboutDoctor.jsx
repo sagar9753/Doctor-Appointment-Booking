@@ -1,45 +1,37 @@
 import React from 'react'
 import { dateFormate } from '../../utils/dateFormate'
 
-const AboutDoctor = () => {
+const AboutDoctor = ({ user }) => {
+    console.log(user);
     return (
         <div className='max-w-[700px]'>
             <div className='mt-[50px] w-full'>
-                <h2 className='text-[20px] lg:text-[23px] font-[700]'>About <span className='text-[#cd3c54]'>Akash Gupta</span> </h2>
+                <h2 className='text-[20px] lg:text-[23px] font-[700]'>About <span className='text-[#cd3c54]'>{user.fullname}</span> </h2>
 
-                <p className='w-full text_para'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio ad facere cupiditate ab, quas impedit nostrum voluptatibus ipsum praesentium maiores dicta est eos dolorem aut, voluptas error ducimus minus eligendi quam. Voluptates fuga, assumenda nostrum dignissimos porro odit iusto officiis? Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, ullam?</p>
+                <p className='w-full text_para'>
+                    {user.about}
+                </p>
             </div>
 
             <div className="mt-[30px] ">
                 <h2 className='text-[20px] lg:text-[23px] font-[700]'>Education</h2>
 
                 <ul className='pt-4'>
-                    <li className='flex flex-col sm:flex-row sm:items-center sm:justify-between mb-[30px]'>
-                        <div>
-                            <span className='text-[#cd3c54] font-[600]'>
-                                {dateFormate('5-14-2010')}
-                            </span>
+                    {user.qualifications.map((item, ind) => {
+                        return <li key={ind} className='flex flex-col sm:flex-row sm:items-center sm:justify-between mb-[30px]'>
+                            <div>
+                                <span className='text-[#cd3c54] font-[600]'>
+                                    {dateFormate(item.startingDate)} - {dateFormate(item.endingDate)}
+                                </span>
+                                <p className='font-medium'>
+                                    {item.degree}
+                                </p>
+                            </div>
                             <p className='font-medium'>
-                                PHD in Surgen
+                                {item.university}
                             </p>
-                        </div>
-                        <p className='font-medium'>
-                            CHL Care Hospital, Indore
-                        </p>
-                    </li>
-                    <li className='flex flex-col sm:flex-row sm:items-center sm:justify-between mb-[30px]'>
-                        <div>
-                            <span className='text-[#cd3c54] font-[600]'>
-                                {dateFormate('9-10-2010')}
-                            </span>
-                            <p className='font-medium'>
-                                PHD in Surgen
-                            </p>
-                        </div>
-                        <p className='font-medium'>
-                            CHL Care Hospital, Indore
-                        </p>
-                    </li>
+                        </li>
+                    })}
                 </ul>
             </div>
 
@@ -47,28 +39,17 @@ const AboutDoctor = () => {
                 <h2 className='text-[20px] lg:text-[23px] font-[700]'>Experiance</h2>
 
                 <ul className='flex justify-center flex-wrap gap-[30px] pt-4'>
-                    <li className='p-4 bg-[#abe3e8] '>
+                    {user.experiences.map((item, ind) => <li key={ind} className='p-4 bg-[#abe3e8] '>
                         <span className='text-irisBlueColor text-[15px]'>
-                            {dateFormate('10-5-2008')} - {dateFormate('06-10-2014')}
+                            {dateFormate(item.startingDate)} - {dateFormate(item.endingDate)}
                         </span>
                         <p className='text-[16px] text-[#525858]'>
-                            Sr. Surgen
+                            {item.position}
                         </p>
                         <p className='text-[15px] text-[#323333]'>
-                            CHL Care Hospital, Indore
+                            {item.hospital}
                         </p>
-                    </li>
-                    <li className='p-4 bg-[#abe3e8] '>
-                        <span className='text-irisBlueColor text-[15px]'>
-                            {dateFormate('10-5-2008')} - {dateFormate('06-10-2014')}
-                        </span>
-                        <p className='text-[16px] text-[#525858]'>
-                            Sr. Surgen
-                        </p>
-                        <p className='text-[15px] text-[#323333]'>
-                            CHL Care Hospital, Indore
-                        </p>
-                    </li>
+                    </li>)}
                 </ul>
             </div>
         </div>

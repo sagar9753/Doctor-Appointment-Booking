@@ -13,24 +13,24 @@ const Overview = () => {
         </div>
         <div className='space-y-2'>
           <span className='bg-[#b1e2e6] text-irisBlueColor p-2 text-[13px] lg:text-[15px]'>
-            Surgen
+            {user.speciality}
           </span>
 
           <h2 className='text-[20px] lg:text-[23px] font-[700] '>
-            Sagar Rajput
+            {user.fullname}
           </h2>
 
           <div className='flex items-center text-[14px] '>
             <FaStar className='text-[#e6b635]' size={18} />
-            <span>4.5</span>
-            <span>(100)</span>
+            <span>{user.avgRating}</span>
+            <span>({user.totalRating})</span>
           </div>
           <p className="text_para">
-            Doctor bio Hai yeh
+            {user.bio}
           </p>
         </div>
       </div>
-      <AboutDoctor />
+      <AboutDoctor user={user} />
     </div>
   )
 }
