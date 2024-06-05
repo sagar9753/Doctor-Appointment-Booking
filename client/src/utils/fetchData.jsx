@@ -16,6 +16,7 @@ const fetchData = (url) => {
                     headers: { Authorization: `Bearer ${token}` }
                 })
                 const result = await res.json();
+                console.log("Result",result.data);
 
                 if (!res.ok)
                     throw new Error(result.error)
