@@ -10,7 +10,6 @@ const DoctorDashBoard = () => {
   const [tab, setTab] = useState("Overview");
   const tabs = ["Overview", "Appointments", "Profile"]
   const { user, role } = useSelector((state) => state)
-  console.log(user, role);
   return (
     <div className='container'>
       <div>

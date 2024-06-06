@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify';
 
 const fetchData = (url) => {
     const [data, setData] = useState([]);
@@ -16,15 +17,15 @@ const fetchData = (url) => {
                     headers: { Authorization: `Bearer ${token}` }
                 })
                 const result = await res.json();
-                console.log("Result",result.data);
 
                 if (!res.ok)
-                    throw new Error(result.error)
+                    throw new Error(result.msg)
 
                 setData(result.data)
                 setLoading(false)
             } catch (err) {
                 setLoading(false)
+                toast.error(err.message)
                 setError(err.message);
             }
         }

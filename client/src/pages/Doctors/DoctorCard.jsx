@@ -21,14 +21,14 @@ const DoctorCard = ({ doctor }) => {
           </div>
         </div>
 
-        <span className='text-[12px]'>{doctor.bio}</span>
+        <span className='text-[12px]'>{doctor.experiences && doctor.experiences[0]?.hospital}</span>
 
         <div className='flex justify-between'>
           <span className='bg-[#CCF0F3] text-irisBlueColor p-2 text-[13px] lg:text-[15px]'>{doctor.speciality}</span>
-          <Link to="/doctors" className='flex items-center gap-1 px-2 py-2 hover:bg-[#d1d1cf]'>
+          <Link to= {`/doctors/${doctor._id}`} className='flex items-center gap-1 px-2 py-2 hover:bg-[#d1d1cf]'>
             <button
               className="flex items-center text-[15px] font-[700] ">
-              Learn More
+              Know More
             </button>
             <FaArrowRightLong />
           </Link>

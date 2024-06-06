@@ -1,6 +1,6 @@
 import React from 'react'
 import fetchData from '../../utils/fetchData'
-import DoctorCard from '../../components/Doctors/DoctorCard'
+import DoctorCard from '../Doctors/DoctorCard'
 import PropagateLoader from 'react-spinners/PropagateLoader'
 
 const MyBookings = () => {
