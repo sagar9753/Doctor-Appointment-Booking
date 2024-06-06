@@ -45,7 +45,7 @@ export const getDoctor = async (req, res) => {
         const doctorId = req.params.id;
         const doctor = await Doctor.findById(doctorId).populate('reviews').select("-password")
 
-        res.status(200).json({ success: true, msg: "Doctor found", data: doctor });
+        res.status(200).json({ success: true, error: "Doctor found", data: doctor });
     } catch (err) {
         res.status(404).json({ success: false, error: err.message });
     } 
@@ -59,7 +59,7 @@ export const getAllDoctor = async (req, res) => {
         if (query) {
             doctors = await Doctor.find({
                 isApproved: "approved", $or: [
-                    { name: { $regex: query, $options: "i" } },
+                    { fullname: { $regex: query, $options: "i" } },
                     { speciality: { $regex: query, $options: "i" } },
                 ]
             }).select("-password")
@@ -67,6 +67,8 @@ export const getAllDoctor = async (req, res) => {
         else {
             doctors = await Doctor.find({isApproved: "approved"}).select("-password")
         }
+        if(doctors.length === 0)
+            return  res.status(404).json({ success: false, msg: "Doctor not found"});
 
         res.status(200).json({ success: true, msg: "All Doctors found", data: doctors });
     } catch (err) {
