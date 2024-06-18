@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { FaStar } from "react-icons/fa";
-import docImg from '../../assets/images/doctor-img01.jpg'
 import AboutDoctor from './AboutDoctor';
 import Feedback from './Feedback';
 import BookApointment from './BookApointment';
@@ -13,7 +12,8 @@ import PropagateLoader from 'react-spinners/PropagateLoader'
 const DoctorDetails = () => {
   const { id } = useParams();
   const { data, loading, error } = fetchData(`${import.meta.env.VITE_BACKEND}/doctors/${id}`)
-  const { fullname, about, speciality, photo, avgRating, totalRating, qualifications, experiences,timeSlots,fees } = data
+  const { fullname, about, speciality, photo, avgRating, totalRating, qualifications, experiences, timeSlots, fees, reviews } = data
+
 
   const [tab, setTab] = useState("About");
   const tabs = ["About", "Feedback", "Appointment"];
@@ -55,8 +55,8 @@ const DoctorDetails = () => {
               <Tabs tab={tab} setTab={setTab} tabs={tabs} />
               <div className="mt-[50px]">
                 {tab === "About" && <AboutDoctor fullname={fullname} about={about} qualifications={qualifications} experiences={experiences} />}
-                {tab === "Feedback" && <Feedback />}
-                {tab === "Appointment" && <BookApointment timeSlots={timeSlots} fees={fees} />}
+                {tab === "Feedback" && <Feedback reviews={reviews} totalRating={totalRating} />}
+                {tab === "Appointment" && <BookApointment doctorId={id} timeSlots={timeSlots} fees={fees} />}
               </div>
             </div>
 

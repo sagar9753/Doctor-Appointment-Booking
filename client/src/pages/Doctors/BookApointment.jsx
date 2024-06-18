@@ -1,7 +1,8 @@
 import React from 'react'
+import convertTime from '../../utils/convertTime'
 
-const BookApointment = ({ timeSlots,fees }) => {
-    console.log(timeSlots);
+const BookApointment = ({ doctorId,timeSlots,fees }) => {
+    console.log(doctorId);
     return (
         <div className='max-w-[400px] px-5'>
             <div className='mt-[30px]'>
@@ -10,8 +11,8 @@ const BookApointment = ({ timeSlots,fees }) => {
                 </h2>
                 <ul className="mt-3 text-[#707070]">
                     {timeSlots.map((item, ind) => <li key={ind} className="flex items-center justify-between mb-1">
-                        <p className="text-[15px] font-semibold">{item.day}</p>
-                        <p className="text-[15px] font-semibold">{item.startingTime} - {item.endingTime}</p>
+                        <p className="text-[15px] font-semibold">{item.day.charAt(0).toUpperCase() + item.day.slice(1)}</p>
+                        <p className="text-[15px] font-semibold">{convertTime(item.startingTime)} - {convertTime(item.endingTime)}</p>
                     </li>)}
                 </ul>
             </div>
