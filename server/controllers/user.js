@@ -22,7 +22,10 @@ export const getUserProfile = async (req, res) => {
 export const updateUser = async (req, res) => {
     try {
         const userId = req.params.id;
-        const checkEmail = await User.findOne({email: req.body.email});
+        let checkEmail = await User.findOne({email: req.body.email});
+        if (!checkEmail) {
+            checkEmail = await Doctor.findOne({email: req.body.email})
+        }
         
         if(checkEmail && checkEmail.id !== userId)
             return res.status(400).json({ success: false, msg: "Email is already used" });

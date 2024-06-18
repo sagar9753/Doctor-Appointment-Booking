@@ -8,7 +8,6 @@ export const register = async (req, res) => {
     try {
         const { fullname, email, password, role, gender, photo } = req.body;
         
-        console.log(role);
         let user = null;
         if (role === 'patient') {
             user = await User.findOne({ email: email });
@@ -35,7 +34,6 @@ export const register = async (req, res) => {
                 fullname, email, password: hashPassword, photo, gender, role
             })
         }
-        console.log(newUser);
         await newUser.save();
 
         res.status(200).json({ success: true, msg: "User registered" })
@@ -47,9 +45,7 @@ export const register = async (req, res) => {
 }
 export const login = async (req, res) => {
     try {
-        console.log("Welcome in login");
         const { email, password } = req.body; 
-        console.log(email,password);
  
         const patient = await User.findOne({ email });
         const doctor = await Doctor.findOne({ email });
@@ -69,7 +65,6 @@ export const login = async (req, res) => {
         if (!isMatch)
             return res.status(400).json({ msg: "Invalid email or password" });
 
-        console.log(process.env.JWT_SEC_KEY);
         const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SEC_KEY);
 
         const { role, appointments, ...rest } = user._doc;
