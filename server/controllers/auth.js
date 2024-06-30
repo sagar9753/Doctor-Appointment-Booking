@@ -7,7 +7,7 @@ import Doctor from '../models/Doctor.js'
 export const register = async (req, res) => {
     try {
         const { fullname, email, password, role, gender, photo } = req.body;
-        
+
         let user = null;
         if (role === 'patient') {
             user = await User.findOne({ email: email });
@@ -15,14 +15,13 @@ export const register = async (req, res) => {
         else if (role === 'doctor') {
             user = await Doctor.findOne({ email: email });
         }
-        
+
         if (user)
             return res.status(400).json({ msg: "Email is Already used" });
 
-        
         const salt = await bcrypt.genSalt();
         const hashPassword = await bcrypt.hash(password, salt);
-        
+
         let newUser = null;
         if (role === 'patient') {
             newUser = new User({
@@ -45,8 +44,8 @@ export const register = async (req, res) => {
 }
 export const login = async (req, res) => {
     try {
-        const { email, password } = req.body; 
- 
+        const { email, password } = req.body;
+
         const patient = await User.findOne({ email });
         const doctor = await Doctor.findOne({ email });
         let user = null;
@@ -58,7 +57,7 @@ export const login = async (req, res) => {
 
 
         if (!user)
-            res.status(404).json({ msg: "User not found" })
+            return res.status(404).json({ msg: "User not found" })
 
         const isMatch = await bcrypt.compare(password, user.password);
 

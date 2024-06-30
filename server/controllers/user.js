@@ -14,7 +14,7 @@ export const getUserProfile = async (req, res) => {
         const { password, ...rest } = user._doc;
 
         res.status(200).json({ success: true, msg: "Profile info found", data: { ...rest } });
-    } catch (err) { 
+    } catch (err) {
         res.status(500).json({ success: false, error: err.message });
     }
 }
@@ -22,15 +22,15 @@ export const getUserProfile = async (req, res) => {
 export const updateUser = async (req, res) => {
     try {
         const userId = req.params.id;
-        let checkEmail = await User.findOne({email: req.body.email});
+        let checkEmail = await User.findOne({ email: req.body.email });
         if (!checkEmail) {
-            checkEmail = await Doctor.findOne({email: req.body.email})
+            checkEmail = await Doctor.findOne({ email: req.body.email })
         }
-        
-        if(checkEmail && checkEmail.id !== userId)
+
+        if (checkEmail && checkEmail.id !== userId)
             return res.status(400).json({ success: false, msg: "Email is already used" });
 
-        const updatedUser = await User.findByIdAndUpdate(userId, { $set: req.body }, { new: true }).select('-password'); 
+        const updatedUser = await User.findByIdAndUpdate(userId, { $set: req.body }, { new: true }).select('-password');
         res.status(200).json({ success: true, msg: "User updated", data: updatedUser });
     } catch (err) {
         res.status(500).json({ success: false, msg: err.message });
