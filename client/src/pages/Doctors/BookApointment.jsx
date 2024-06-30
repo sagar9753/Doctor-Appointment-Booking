@@ -1,8 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import convertTime from '../../utils/convertTime'
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import BounceLoader from 'react-spinners/BeatLoader'
 
 const BookApointment = ({ doctorId,timeSlots,fees }) => {
+    const [loading, setLoading] = useState(false)
+    const token = useSelector((state) => state.token)
     console.log(doctorId);
+
+    const handleSubmit = async() =>{
+        setLoading(true)
+        try {
+            console.log("djnjf");
+            const res = await fetch(`${import.meta.env.VITE_BACKEND}/bookings/checkout-session/${doctorId}`,{
+                method:'post',
+                headers:{
+                    Authorization:`Bearer ${token}`
+                }
+            })
+
+            const data = await res.json()
+            console.log(data);
+
+            if(!res.ok){
+                throw new Error(data.msg + 'Plz try again')
+            }
+            if(data.session.url){
+                window.location.href = data.session.url
+            }
+        } catch (err) {
+            setLoading(false)
+            toast.error(err.message)
+        }
+    }
     return (
         <div className='max-w-[400px] px-5'>
             <div className='mt-[30px]'>
@@ -24,7 +55,7 @@ const BookApointment = ({ doctorId,timeSlots,fees }) => {
                     {fees} Rs
                 </span>
             </div>
-            <button className='btn'>Book Appointment</button>
+            <button onClick={handleSubmit} className='btn w-full'>{loading ? <BounceLoader color='white' /> : 'Book Appointment'}</button>
         </div>
     )
 }

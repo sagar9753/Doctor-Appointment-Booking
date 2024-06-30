@@ -8,6 +8,7 @@ import Doctor from '../pages/Doctors/Doctor'
 import DoctorDetails from '../pages/Doctors/DoctorDetails'
 import MyAccount from '../pages/User-account/MyAccount'
 import DoctorDashBoard from '../pages/Doctor-account/DoctorDashBoard'
+import CheckoutSuccess from '../pages/CheckoutSuccess'
 
 import {Routes,Route, Navigate} from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -27,6 +28,7 @@ const Routers = () => {
       <Route path="/services" element={<Services/>} />
       <Route path="/doctors" element={<Doctor/>} />
       <Route path="/doctors/:id" element={<DoctorDetails/>} />
+      <Route path="/checkout-success" element={<CheckoutSuccess/>} />
       <Route path="/users/profile/me" element={isAuth && role === 'patient' ? <MyAccount/> : <Navigate to='/login' />} />
       <Route path="/doctors/profile/me" element={isAuth && role === 'doctor' ? <DoctorDashBoard/> : <Navigate to='/login' />} />
     </Routes>

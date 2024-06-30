@@ -6,7 +6,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 
 const DoctorCard = ({ doctor }) => {
   return (
-    <div class="bg-[#f0f0f0] rounded-t-[12px] ">
+    <div className="bg-[#f0f0f0] rounded-t-[12px] w-[330px] ">
       <div>
         <img className='w-[330px] h-[330px]' src={doctor.photo} alt="" />
       </div>
