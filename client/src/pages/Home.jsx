@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 import heroImg from '../assets/images/hero-img01.png'
 
 const Home = () => {
@@ -11,12 +11,15 @@ const Home = () => {
             {/* hero section */}
             <div className='md:w-[600px]'>
               <h1 className='heading'>
-                Lorem, ipsum dolor sit amet consectetur
+                Your Health, Our Priority 
               </h1>
               <p className='text_para'>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem, atque in eius pariatur doloremque nemo architecto, numquam sunt quae maxime expedita ducimus nihil deserunt aspernatur suscipit minus illum quas corrupti.
+                Find and book appointments with trusted healthcare professionals in your area.
+                Get the care you deserve with our easy-to-use booking platform.
               </p>
-              <button className='btn'>Book Appointment</button>
+              <Link to="/doctors">
+                <button className='btn'>Book Appointment</button>
+              </Link>
             </div>
 
             <div className='flex gap-[30px] '>
